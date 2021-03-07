@@ -1,0 +1,11 @@
+- hosts: master
+  roles:
+    - K8s_master
+- hosts: slave
+  vars_prompt:
+    name: token
+    private: no
+    prompt: Enter the token please
+  roles:
+    - K8s_slave
+

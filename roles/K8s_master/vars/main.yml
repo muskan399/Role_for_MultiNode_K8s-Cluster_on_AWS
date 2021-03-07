@@ -1,0 +1,4 @@
+---
+# vars file for K8s_master
+
+cidr: "10.244.0.0/16"
