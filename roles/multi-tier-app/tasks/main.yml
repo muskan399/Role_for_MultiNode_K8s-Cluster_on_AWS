@@ -1,2 +1,37 @@
 ---
 # tasks file for multi-tier-app
+
+- template:
+    src: "{{ item }}"
+    dest: /root/{{ item }}
+  loop:
+    - mysql.yml
+    - wordpress.yml
+    - secret.yml
+    - service.yml
+- command: 
+    cmd: "kubectl apply -f /root/mysql.yml"
+- command:
+    cmd: "kubectl describe pod mysql"
+- command:
+    cmd: "kubectl apply -f /root/{{ item }}"
+  loop:
+    - secret.yml
+    - wordpress.yml
+    - service.yml
+  register: wp
+
+- command:
+    cmd: "kubectl get pod -o wide"
+  register: pod
+- debug:
+    var: pod.stdout_lines
+- command:
+    cmd: "kubectl describe pod mysql"
+  register: mysql
+- debug:
+    var: mysql.stdout_lines[8]
+
+
+
+ 

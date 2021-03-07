@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mysqlrs3
+spec:
+  replicas: 1
+  selector:
+    matchExpressions:
+    - {key: env,operator: In,values: [dev]}
+  template:
+    metadata:
+      name: mysql
+      labels:
+        env: dev
+    spec:
+      containers:
+      - name: "mysqlcont1"
+        image: "mysql:5.6"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: redhat
+
+        - name: MYSQL_DATABASE
+          value: mydb
+          
+        - name: MYSQL_USER
+          value: muskan
+
+        - name: MYSQL_PASSWORD
+          value: redhat
+

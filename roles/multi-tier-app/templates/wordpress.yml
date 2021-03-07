@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mywp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: dev
+      app: server
+  template:
+    metadata:
+      name: mywppod1
+      labels:
+        env: dev
+        app: server
+    spec:
+      containers:
+      - name: "mywpcont1"
+        image: "wordpress:4.8-apache"
+        
